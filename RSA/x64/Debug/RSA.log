@@ -1,1 +1,8 @@
-﻿  RSA.vcxproj -> E:\GitHub\RSA\x64\Debug\RSA.exe
+﻿  RSA.cpp
+D:\rsa\RSA\RSA\RSA.cpp(26,22): warning C4244: “=”: 从“std::streamsize”转换到“int”，可能丢失数据
+D:\rsa\RSA\RSA\RSA.cpp(54,22): warning C4244: “=”: 从“std::streamsize”转换到“int”，可能丢失数据
+D:\rsa\RSA\RSA\RSA.cpp(117,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+D:\rsa\RSA\RSA\RSA.cpp(167,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  test.cpp
+  正在生成代码...
+  RSA.vcxproj -> D:\rsa\RSA\x64\Debug\RSA.exe

@@ -15,9 +15,17 @@ void testString()
 	std::cout << strout << std::endl;
 }
 
+void testfile()
+{
+	RSA rsa;
+	Key key = rsa.getKey();
+	rsa.ecrept("plain.txt", "ecrept.out.txt",key.ekey, key.pkey);
+	rsa.decrept("ecrept.out.txt", "dcrept.out.txt", key.dkey, key.pkey);
+
+}
 int main()
 {
-	testString();
-
+	//testString();
+	testfile();
 	return 0;
 }

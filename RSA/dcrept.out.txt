@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <map>
+void test1()
+{
+    std::vector<int> array = {1, 2, 3, 4, 5};
+    // 正常的遍历方式是，通过迭代器，由于每次都会判断是否end，在动态添加元素时，可以正常遍历
+    for (auto it = array.begin(); it != array.end(); ++it)
+    {
+        std::cout<<*it<<std::endl;
+    }
+
+    // 使用区间for简化迭代，类似python用法，it是元素本身不是指针，范围遍历，array只会获取一次size后进行for遍历，所以动态添加元素不会遍历到
+    for (auto it : array)// read only
+    {
+        std::cout<<it<<std::endl;
+    }
+
+    for (auto &it : array)// read/write
+    {
+        ++it;//可以对元素值进行赋值操作
+        std::cout<<it<<std::endl;
+    }
+    for (auto it : array)// read only
+    {
+        std::cout<<it<<std::endl;
+    }
+	// 若果是stl模板中的map容器
+	std::map<int, int> mp;
+	mp.insert(std::make_pair<int,int>(1,2));
+	mp.insert(std::make_pair<int,int>(2,3));
+	for (auto& it: mp)
+	{
+		std::cout<<it.first<<std::endl;// key值不能被修改，是常量
+		std::cout<<it.second++<<std::endl;// value可以被修改
+	}
+}
+int main()
+{
+    test1();
+    return 0;
+}

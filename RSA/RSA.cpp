@@ -9,18 +9,58 @@ void RSA::ecrept(const char* plain_file_in, const char* ecrept_file_out,
 	long ekey, long pkey)
 {
 	std::ifstream fin(plain_file_in);
-	std::ofstream fout(ecrept_file_out);
+	std::ofstream fout(ecrept_file_out,std::ofstream::app);
 	if (!fin.is_open())
 	{
 		std::cout << "open file failed!" << std::endl;
 		return;
 	}
-	
+	const int NUM = 256;
+	char buffer[NUM];
+	long buffer_out[NUM];
+	int curNum;
+	//打开文件，按块读取，逐段加密
+	while (!fin.eof())
+	{
+		fin.read(buffer, NUM);
+		curNum = fin.gcount();//最近读了多少字节
+		for (int i = 0; i < curNum; ++i)
+		{
+			buffer_out[i] = ecrept((long)buffer[i], ekey, pkey);
+		}
+		fout.write((char*)buffer_out, curNum * sizeof(long));
+	}
+	fin.close();
+	fout.close();
 }
 void RSA::decrept(const char* ecrept_file_in, const char* plain_file_out,
 	long dkey, long pkey) 
 {
-
+	std::ifstream fin(ecrept_file_in);
+	std::ofstream fout(plain_file_out,std::ofstream::app);
+	if (!fin.is_open())
+	{
+		std::cout << "open file failed!" << std::endl;
+		return;
+	}
+	const int NUM = 256;
+	long buffer[NUM];
+	char buffer_out[NUM];
+	int curNum;
+	//打开文件，按块读取，逐段加密
+	while (!fin.eof())
+	{
+		fin.read((char*)buffer, NUM * sizeof(long));
+		curNum = fin.gcount();//最近读了多少字节
+		curNum /= sizeof(long);
+		for (int i = 0; i < curNum; ++i)
+		{
+			buffer_out[i] = (char)ecrept(buffer[i], dkey, pkey);
+		}
+		fout.write(buffer_out, curNum);
+	}
+	fin.close();
+	fout.close();
 }
 
 std::vector<long> RSA::ecrept(std::string& str_in, long ekey, long pkey)
